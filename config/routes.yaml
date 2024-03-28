@@ -3,3 +3,28 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+post_wallet_create:
+    path: '/wallets/create'
+    controller: 'WalletController:createWallet'
+    methods: ['POST']
+
+get_wallet:
+    path: '/wallets'
+    controller: 'WalletController:getWallet'
+    methods: ['GET']
+
+get_wallet_id:
+    path: '/wallets/{id}'
+    controller: 'WalletController:getByIdWallet'
+    methods: ['GET']
+
+put_wallet_id:
+    path: '/wallets/{id}'
+    controller: 'WalletController:putWallet'
+    methods: ['PUT']
+
+delete_wallet_id:
+    path: '/wallets/{id}'
+    controller: 'WalletController:deleteWallet'
+    methods: ['DELETE']
