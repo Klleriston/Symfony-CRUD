@@ -4,27 +4,54 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-post_wallet_create:
-    path: '/wallets/create'
-    controller: 'WalletController:createWallet'
-    methods: ['POST']
-
+##### - WALLET - ######
 get_wallet:
     path: '/wallets'
     controller: 'WalletController:getWallet'
     methods: ['GET']
 
 get_wallet_id:
-    path: '/wallets/{id}'
+    path: '/wallet/{id}'
     controller: 'WalletController:getByIdWallet'
     methods: ['GET']
 
+post_wallet_create:
+    path: '/wallet/create'
+    controller: 'WalletController:createWallet'
+    methods: ['POST']
+
 put_wallet_id:
-    path: '/wallets/{id}'
+    path: '/wallet/{id}'
     controller: 'WalletController:putWallet'
     methods: ['PUT']
 
 delete_wallet_id:
-    path: '/wallets/{id}'
+    path: '/wallet/{id}'
     controller: 'WalletController:deleteWallet'
+    methods: ['DELETE']
+
+########## - OWNER - ########
+get_owner:
+    path: '/owners'
+    controller: 'OwnerController:getOwners'
+    methods: ['GET']
+
+get_owner_id:
+    path: '/owner/{id}'
+    controller: 'OwnerController:getByIDowner'
+    methods: ['GET']
+
+post_owner_create:
+    path: '/owner/create'
+    controller: 'OwnerController:createOwner'
+    methods: ['POST']
+
+put_owner_id:
+    path: '/owner/{id}'
+    controller: 'OwnerController:putOwner'
+    methods: ['PUT']
+
+delete_owner_id:
+    path: '/owner/{id}'
+    controller: 'OwnerController:deleteOwner'
     methods: ['DELETE']

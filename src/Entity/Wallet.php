@@ -33,6 +33,10 @@ class Wallet
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $assets = null;
 
+    #[ORM\ManyToOne(targetEntity: Owner::class, inversedBy: 'wallet_list')]
+    #[ORM\JoinColumn(name: "owner_id", referencedColumnName: "id", nullable: false)]
+    private ?Owner $owner_id = null;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -50,10 +54,12 @@ class Wallet
 
         return $this;
     }
+
     public function getTitle(): ?string
     {
         return $this->title;
     }
+
     public function getValue(): ?int
     {
         return $this->value;
@@ -66,7 +72,7 @@ class Wallet
         return $this;
     }
 
-    public function setId(string $id): static
+    public function setId(int $id): static
     {
         $this->id = $id;
 
@@ -120,4 +126,11 @@ class Wallet
 
         return $this;
     }
+
+    public function getOwnerId(): ?Owner
+    {
+        return $this->owner_id;
+    }
+
+
 }
