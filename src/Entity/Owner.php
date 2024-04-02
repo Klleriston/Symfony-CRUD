@@ -83,7 +83,8 @@ class Owner
 
     public function addWalletList(Wallet $walletList): static
     {
-        if (!$this->wallet_list->contains($walletList)) {
+        if (!$this->wallet_list->contains($walletList))
+        {
             $this->wallet_list->add($walletList);
             $walletList->setOwnerId($this);
         }
@@ -93,8 +94,10 @@ class Owner
 
     public function removeWalletList(Wallet $walletList): static
     {
-        if ($this->wallet_list->removeElement($walletList)) {
-            if ($walletList->getOwnerId() === $this) {
+        if ($this->wallet_list->removeElement($walletList))
+        {
+            if ($walletList->getOwnerId() === $this)
+            {
                 $walletList->setOwnerId(null);
             }
         }

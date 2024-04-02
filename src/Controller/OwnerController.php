@@ -17,14 +17,17 @@ class OwnerController extends AbstractController
     {
         $owners = $entityManager->getRepository(Owner::class)->findAll();
 
-        if (!$owners) {
+        if (!$owners)
+        {
             return new JsonResponse(['error' => 'Owners not found'], Response::HTTP_NOT_FOUND);
         }
 
         $data = [];
-        foreach ($owners as $owner) {
+        foreach ($owners as $owner)
+        {
             $wallets = [];
-            foreach ($owner->getWalletList() as $wallet) {
+            foreach ($owner->getWalletList() as $wallet)
+            {
                 $wallets[] = [
                     'id' => $wallet->getId(),
                     'title' => $wallet->getTitle(),
@@ -53,7 +56,8 @@ class OwnerController extends AbstractController
     {
         $owner = $entityManager->getRepository(Owner::class)->find($id);
 
-        if (!$owner) {
+        if (!$owner)
+        {
             return new JsonResponse(['error' => 'Owner not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -97,7 +101,8 @@ class OwnerController extends AbstractController
 
         $owner = $entityManager->getRepository(Owner::class)->find($id);
 
-        if (!$owner) {
+        if (!$owner)
+        {
             return new JsonResponse(['error' => 'Owner not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -115,7 +120,8 @@ class OwnerController extends AbstractController
     {
         $owner = $entityManager->getRepository(Owner::class)->find($id);
 
-        if (!$owner) {
+        if (!$owner)
+        {
             return new JsonResponse(['error' => 'Owner not found'], Response::HTTP_NOT_FOUND);
         }
 

@@ -18,12 +18,14 @@ class WalletController extends AbstractController
     {
         $wallets = $entityManager->getRepository(Wallet::class)->findAll();
 
-        if (!$wallets) {
+        if (!$wallets)
+        {
             return new JsonResponse(['error' => 'Wallets not found'], Response::HTTP_NOT_FOUND);
         }
 
         $data = [];
-        foreach ($wallets as $wallet) {
+        foreach ($wallets as $wallet)
+        {
             $data[] = [
                 'id' => $wallet->getId(),
                 'owner_id' => $wallet->getOwner() ? $wallet->getOwner()->getId() : null,
@@ -42,7 +44,8 @@ class WalletController extends AbstractController
     public function getByIdWallet($id, EntityManagerInterface $entityManager): JsonResponse
     {
         $wallet = $entityManager->getRepository(Wallet::class)->find($id);
-        if (!$wallet) {
+        if (!$wallet)
+        {
             return new JsonResponse(['error' => 'Wallet not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -98,7 +101,8 @@ class WalletController extends AbstractController
 
         $wallet = $entityManager->getRepository(Wallet::class)->find($id);
 
-        if (!$wallet) {
+        if (!$wallet)
+        {
             return new JsonResponse(['error' => 'Wallet not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -117,7 +121,8 @@ class WalletController extends AbstractController
     {
         $wallet = $entityManager->getRepository(Wallet::class)->find($id);
 
-        if (!$wallet) {
+        if (!$wallet)
+        {
             return new JsonResponse(['error' => 'Wallet not found'], Response::HTTP_NOT_FOUND);
         }
 
