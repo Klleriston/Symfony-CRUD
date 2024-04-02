@@ -23,17 +23,30 @@ class OwnerController extends AbstractController
 
         $data = [];
         foreach ($owners as $owner) {
+            $wallets = [];
+            foreach ($owner->getWalletList() as $wallet) {
+                $wallets[] = [
+                    'id' => $wallet->getId(),
+                    'title' => $wallet->getTitle(),
+                    'assets' => $wallet->getAssets(),
+                    'value' => $wallet->getValue(),
+                    'createdAt' => $wallet->getCreatedAt()->format('Y-m-d H:i:s'),
+                    'updatedAt' => $wallet->getUpdatedAt()->format('Y-m-d H:i:s'),
+                ];
+            }
+
             $data[] = [
                 'id' => $owner->getId(),
                 'name' => $owner->getName(),
                 'age' => $owner->getAge(),
                 'active' => $owner->isActive(),
-                'wallets' => $owner->getWalletList()
+                'wallets' => $wallets
             ];
         }
 
         return new JsonResponse($data, Response::HTTP_OK);
     }
+
 
     #[Route('/owner/{id}', name: 'get_id_owner', methods: ['GET'])]
     public function getByIDowner($id, EntityManagerInterface $entityManager): JsonResponse
@@ -65,6 +78,11 @@ class OwnerController extends AbstractController
         $owner->setName($data['name']);
         $owner->setAge($data['age']);
         $owner->setActive($data['active']);
+
+        if (!isset($data['name']) || !isset($data['age']) || !isset($data['active']))
+        {
+            return new JsonResponse(['error' => 'Missing required fields'], Response::HTTP_BAD_REQUEST);
+        }
 
         $entityManager->persist($owner);
         $entityManager->flush();

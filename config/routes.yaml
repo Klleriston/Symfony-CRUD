@@ -31,7 +31,7 @@ delete_wallet_id:
     methods: ['DELETE']
 
 ########## - OWNER - ########
-get_owner:
+get_owners:
     path: '/owners'
     controller: 'OwnerController:getOwners'
     methods: ['GET']

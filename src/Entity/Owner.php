@@ -24,7 +24,7 @@ class Owner
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\OneToMany(targetEntity: Wallet::class, mappedBy: 'owner_id', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Wallet::class, mappedBy: 'owner')]
     private Collection $wallet_list;
 
     public function __construct()
@@ -94,7 +94,6 @@ class Owner
     public function removeWalletList(Wallet $walletList): static
     {
         if ($this->wallet_list->removeElement($walletList)) {
-            // set the owning side to null (unless already changed)
             if ($walletList->getOwnerId() === $this) {
                 $walletList->setOwnerId(null);
             }

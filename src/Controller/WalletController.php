@@ -65,18 +65,25 @@ class WalletController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $owner = $entityManager->getRepository(Owner::class)->find($data['owner_id']);
+        if (!$owner)
+        {
+            return new JsonResponse(['error' => 'Owner not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $ownerId = $data['owner_id'];
+        $owner = $entityManager->getRepository(Owner::class)->find($ownerId);
         if (!$owner) {
             return new JsonResponse(['error' => 'Owner not found'], Response::HTTP_NOT_FOUND);
         }
 
+
         $wallet = new Wallet();
         $wallet->setTitle($data['title']);
-        $wallet->setOwner($data['owner']);
-        $wallet-> //
         $wallet->setAssets($data['assets']);
-        $wallet->setUpdatedAt(new \DateTime());
-        $wallet->setCreatedAt(new \DateTime());
         $wallet->setValue($data['value']);
+        $wallet->setOwner($owner);
+        $wallet->setCreatedAt(new \DateTime());
+        $wallet->setUpdatedAt(new \DateTime());
 
         $entityManager->persist($wallet);
         $entityManager->flush();

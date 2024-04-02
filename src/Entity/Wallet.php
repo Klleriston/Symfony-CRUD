@@ -27,15 +27,13 @@ class Wallet
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTimeInterface $updated_at;
 
-    #[ORM\Column(length: 60)]
-    private ?string $owner = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $assets = null;
 
     #[ORM\ManyToOne(targetEntity: Owner::class, inversedBy: 'wallet_list')]
     #[ORM\JoinColumn(name: "owner_id", referencedColumnName: "id", nullable: false)]
-    private ?Owner $owner_id = null;
+    private ?Owner $owner;
+
 
     public function __construct()
     {
@@ -103,18 +101,6 @@ class Wallet
         return $this;
     }
 
-    public function getOwner(): ?string
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(string $owner): static
-    {
-        $this->owner = $owner;
-
-        return $this;
-    }
-
     public function getAssets(): ?string
     {
         return $this->assets;
@@ -127,10 +113,15 @@ class Wallet
         return $this;
     }
 
-    public function getOwnerId(): ?Owner
+    public function getOwner(): ?Owner
     {
-        return $this->owner_id;
+        return $this->owner;
     }
 
+    public function setOwner(?Owner $owner): static
+    {
+        $this->owner = $owner;
 
+        return $this;
+    }
 }
